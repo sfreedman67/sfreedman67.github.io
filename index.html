@@ -1,123 +1,155 @@
 <!DOCTYPE HTML>
-<html>
- <head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Sam Freedman - Ph.D. Candidate in Mathematics at Brown University">
+    <meta name="keywords" content="Sam Freedman, mathematics, Brown University, research, teaching">
+    <meta name="author" content="Sam Freedman">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sam Freedman</title>
     <style>
-        html {
-            margin: 0px;
-            padding: 0px;
-        }
         body {
-            background-color: white;
-            font-family: sans-serif;
-            font-size: 24px;
-            margin: 0px;
-            padding: 0px;
+            background-color: #f4f4f4;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
         }
-
+        header {
+            background-color: #002b5c;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        main {
+            padding: 30px;
+        }
         h1 {
-            font-weight:  bold;
-            color: black;
+            font-weight: bold;
+            color: white;
             font-size: 52px;
         }
-
-        p {
-            color: black;
+        h2 {
+            color: #002b5c;
+            font-size: 36px;
+            margin-top: 40px;
+        }
+        p, li {
+            color: #333;
+            font-size: 20px;
+        }
+        .contact-info, .research-info, .teaching-info {
+            margin-bottom: 20px;
+        }
+        .about-section {
+            display: flex;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+        .about-section img {
+            width: 350px;
+            height: auto;
+            margin-right: 20px;
+            margin-bottom: 20px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+        }
+        a {
+            color: #002b5c;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            background-color: #002b5c;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+        @media (max-width: 768px) {
+            .about-section {
+                flex-direction: column;
+                align-items: center;
+            }
+            .about-section img {
+                margin-right: 0;
+            }
+            h1 {
+                font-size: 40px;
+            }
+            h2 {
+                font-size: 32px;
+            }
+            p, li {
+                font-size: 18px;
+            }
         }
     </style>
-
-  <meta charset="UTF-8">
-  <title>Sam Freedman</title>
-
-  <meta name="Sam Freedman" content="Sam Freedman">
-
- </head>
-
- <body>
-    <h1>Sam Freedman</h1>
-
-    <img src="website_workshop.jpg" style="width:30%;height:30%;"><br>   
-    
-    <p>
-        <strong>Office</strong>: Room 112, MacMillan Hall<br>
-        <strong>Email</strong>: sam_freedman [at] brown [dot] edu<br>
-    </p>
-    
-    <p>
-        I am a sixth year Ph.D. candidate at <a href="https://www.brown.edu/academics/math/">Brown</a>.<br>
-        My advisor is <a href="http://www.math.brown.edu/jk17/">Jeremy Kahn</a>.<br>
-        My research is in flat surfaces, Veech groups and Teichmüller dynamics.<br>
-    </p>
-
-    <p>
-        <a href="Freedman_CV.pdf">CV</a> &emsp; <a href="Freedman--research-statement.pdf">Research Statement</a> &emsp; <a href="Freedman-teaching.pdf">Teaching Statement</a>
-    </p>
-
-    <h2>Papers</h2> 
-    <ol>
-        <li>Veech fibrations. (With Trent Lucas.) <a href="https://arxiv.org/abs/2310.02325">Preprint</a>.
-            <details>
-                <summary>Abstract:</summary>
-                We investigate complex surfaces that fiber over Teichmüller curves where the generic fiber is a Veech surface. When the fiber has genus one, these surfaces are elliptic fibrations; for higher genus fibers, they are typically minimal surfaces of general type. We compute the topological and complex-geometric invariants of these surfaces via the monodromy action on the mod-m homology of the fiber. We get exact values of the invariants for all known algebraically primitive Teichmüller curves.
-            </details>
-        </li>
-        <br>
-        <li>There are no Teichmüller curves in Prym(2, 2). (With Julian Boulanger.) <a href="https://arxiv.org/abs/2211.09737">Preprint</a>. <a href="https://github.com/sfreedman67/92-candidates">Code</a>.
-            <details>
-                <summary>Abstract:</summary>
-                We complete the work of Lanneau and Möller to show that there are no primitive Teichmüller curves in Prym(2,2).
-            </details>
-        </li>
-        <br>
-        <li>Periodic Points on Prym Eigenforms. <a href="https://arxiv.org/abs/2210.13503">Preprint</a>.
-            <details>
-            <summary>Abstract:</summary> 
-            A point of a Veech surface is periodic if it has a finite orbit under the surface's affine automorphism group. We show that the periodic points of Prym eigenforms in the minimal strata of translation surfaces in genera 2, 3 and 4 are the fixed points of the Prym involution. This answers a question of Apisa--Wright and gives a geometric proof of Möller's classification of periodic points of Veech surfaces in the minimal stratum in genus 2.
-            </details> 
-        </li>
-        <br>
-        <li>Computing Periodic Points on Veech Surfaces. (With Zawad Chowdhury, Samuel Everett, and Destine Lee) <a href="https://arxiv.org/abs/2112.02698">Geom Dedicata 217, 66 (2023)</a>. <a href="https://github.com/SFreedman67/samsurf">Code</a>.
-            <details>
-            <summary>Abstract:</summary>
-            A non-square-tiled Veech surface has finitely many periodic points, i.e. points with finite orbit under the affine automorphism group. We present an algorithm that inputs a non-square-tiled Veech surface and outputs its set of periodic points. Applying our algorithm to Prym eigenforms in the minimal stratum in genus 3, we obtain experimental evidence that these surfaces do not have periodic points, except for the fixed points of the Prym involution.
-            </details>
-        </li>
-        <br>
-        <li>Automorphisms of tropical Hassett spaces. (With Siddarth Kannan and Joseph Hlavinka.) <a href="https://ems.press/content/serial-article-files/24916">Port. Math. 79 (2022)</a>.
-        <details>
-            <summary>Abstract:</summary>
-            Given an integer g ≥ 0 and a weight vector w in Q ∩ (0, 1]^n satisfying 2g - 2 + Σ w_i > 0, let Δ_{g, w} denote the moduli space of n-marked, w-stable tropical curves of genus g and volume one.
-            We calculate the automorphism group Aut(Δ_{g, w}) for g ≥ 1 and arbitrary w, and we calculate the group Aut(Δ_{0, w}) when w is heavy/light.
-            In both of these cases, we show that Aut(Δ_{g, w}) ≅ Aut(K_w)$, where K_w is the abstract simplicial complex on {1,…,n} whose faces are subsets with w-weight at most 1.
-            We show that these groups are precisely the finite direct products of symmetric groups.
-            The space Δ_{g, w} may also be identified with the dual complex of the divisor of singular curves in the algebraic Hassett space M‾_{g, w}.
-            Following the work of Massarenti and Mella on the biregular automorphism group Aut(M‾_{g, w}), we show that Aut(Δ_{g, w}) is naturally identified with the subgroup of automorphisms which preserve the divisor of singular curves.
-        </details>
-        </li>
-    </ol>
-
-    <h2>Teaching</h2>
-    <h3>Brown University:</h3>
-    <ol>
-        <li>Spring 2024: Math 520, Linear Algebra.
-        </li>
-        <li>Fall 2023: <a href="https://canvas.brown.edu/courses/1092565">Math 200, Multivariable Calculus (Physics/Engineering)</a>
-        </li>
-        <li>Spring 2023: <a href="https://canvas.brown.edu/courses/1090383">Math 520, Linear Algebra</a>
-        </li>
-        <li>Fall 2022: <a href="https://canvas.brown.edu/courses/1089623">Math 200, Multivariable Calculus (Physics/Engineering)</a>
-        </li>
-        <li>Fall 2021: <a href="https://canvas.brown.edu/courses/1085709">Math 190, Advanced Placement Calculus (Physics/Engineering)</a>
-        </li>
-        <li>Summer 2021: <a href="https://canvas.brown.edu/courses/1085209">Math 520, Linear Algebra</a>
-        </li>
-        <li>Spring 2021: <a href="https://canvas.brown.edu/courses/1084139">Introductory Calculus, Part 2</a>
-        </li>
-        <li>Spring 2020: <a href="https://canvas.brown.edu/courses/1081123">Math 90, Introductory Calculus, Part 1</a>
-        </li>
-
-    </ol>
-
-
- </body>
-
+</head>
+<body>
+    <header>
+        <h1>Sam Freedman</h1>
+    </header>
+    <main>
+        <section id="about" class="about-section">
+            <img src="website_workshop.jpg" alt="Sam Freedman">
+            <div>
+                <div class="contact-info">
+                    <p>
+                        <strong>Office</strong>: Room 112, MacMillan Hall<br>
+                        <strong>Email</strong>: sam_freedman [at] brown [dot] edu
+                    </p>
+                </div>
+                <div class="research-info">
+                    <p>
+                        I am a sixth-year Ph.D. candidate at <a href="https://www.brown.edu/academics/math/">Brown University</a>.<br>
+                        My advisor is <a href="http://www.math.brown.edu/jk17/">Jeremy Kahn</a>.<br>
+                        My research is in flat surfaces, Veech groups, and Teichmüller dynamics.
+                    </p>
+                    <p>
+                        <a href="Freedman_CV.pdf">CV</a> &emsp; <a href="Freedman--research-statement.pdf">Research Statement</a> &emsp; <a href="Freedman-teaching.pdf">Teaching Statement</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+        <section id="papers">
+            <h2>Papers</h2>
+            <ol>
+                <li>Veech fibrations. (With Trent Lucas.) <a href="https://arxiv.org/abs/2310.02325">Preprint</a>.
+                </li>
+                <br>
+                <li>There are no Teichmüller curves in Prym(2, 2). (With Julian Boulanger.) <a href="https://arxiv.org/abs/2211.09737">Preprint</a>. <a href="https://github.com/sfreedman67/92-candidates">Code</a>.
+                </li>
+                <br>
+                <li>Periodic Points on Prym Eigenforms. <a href="https://arxiv.org/abs/2210.13503">Preprint</a>.
+                </li>
+                <br>
+                <li>Computing Periodic Points on Veech Surfaces. (With Zawad Chowdhury, Samuel Everett, and Destine Lee) <a href="https://arxiv.org/abs/2112.02698">Geom Dedicata 217, 66 (2023)</a>. <a href="https://github.com/SFreedman67/samsurf">Code</a>.
+                </li>
+                <br>
+                <li>Automorphisms of tropical Hassett spaces. (With Siddarth Kannan and Joseph Hlavinka.) <a href="https://ems.press/content/serial-article-files/24916">Port. Math. 79 (2022)</a>.
+                </li>
+            </ol>
+        </section>
+        <section id="teaching">
+            <h2>Teaching</h2>
+            <h3>Brown University:</h3>
+            <ol>
+                <li>Spring 2024: Math 520, Linear Algebra.</li>
+                <li>Fall 2023: <a href="https://canvas.brown.edu/courses/1092565">Math 200, Multivariable Calculus (Physics/Engineering)</a></li>
+                <li>Spring 2023: <a href="https://canvas.brown.edu/courses/1090383">Math 520, Linear Algebra</a></li>
+                <li>Fall 2022: <a href="https://canvas.brown.edu/courses/1089623">Math 200, Multivariable Calculus (Physics/Engineering)</a></li>
+                <li>Fall 2021: <a href="https://canvas.brown.edu/courses/1085709">Math 190, Advanced Placement Calculus (Physics/Engineering)</a></li>
+                <li>Summer 2021: <a href="https://canvas.brown.edu/courses/1085209">Math 520, Linear Algebra</a></li>
+                <li>Spring 2021: <a href="https://canvas.brown.edu/courses/1084139">Introductory Calculus, Part 2</a></li>
+                <li>Spring 2020: <a href="https://canvas.brown.edu/courses/1081123">Math 90, Introductory Calculus, Part 1</a></li>
+            </ol>
+        </section>
+    </main>
+</body>
 </html>
