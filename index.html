@@ -7,104 +7,26 @@
     <meta name="author" content="Sam Freedman">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sam Freedman</title>
-    <style>
-        body {
-            background-color: #f4f4f4;
-            font-family: 'Arial', sans-serif;
-            color: #333;
-            line-height: 1.8;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: #002b5c;
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-        }
-        main {
-            padding: 30px;
-        }
-        h1 {
-            font-weight: bold;
-            color: white;
-            font-size: 52px;
-        }
-        h2 {
-            color: #002b5c;
-            font-size: 36px;
-            margin-top: 40px;
-        }
-        p, li {
-            color: #333;
-            font-size: 20px;
-        }
-        .contact-info, .research-info, .teaching-info {
-            margin-bottom: 20px;
-        }
-        .about-section {
-            display: flex;
-            align-items: flex-start;
-            flex-wrap: wrap;
-        }
-        .about-section img {
-            width: 350px;
-            height: auto;
-            margin-right: 20px;
-            margin-bottom: 20px;
-            border: 2px solid #ccc;
-            border-radius: 10px;
-        }
-        a {
-            color: #002b5c;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        footer {
-            background-color: #002b5c;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-        }
-        @media (max-width: 768px) {
-            .about-section {
-                flex-direction: column;
-                align-items: center;
-            }
-            .about-section img {
-                margin-right: 0;
-            }
-            h1 {
-                font-size: 44px;
-            }
-            h2 {
-                font-size: 32px;
-            }
-            p, li {
-                font-size: 18px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
         <h1>Sam Freedman</h1>
     </header>
     <main>
-        <section id="about" class="about-section">
-            <img src="website_workshop.jpg" alt="Sam Freedman">
+        <section id="about" aria-labelledby="about-heading" class="about-section">
+            <h2 id="about-heading" class="visually-hidden">About</h2>
+            <img src="website_workshop.jpg"
+                 srcset="website_workshop-small.jpg 400w, website_workshop.jpg 800w"
+                 sizes="(max-width: 768px) 100vw, 350px"
+                 alt="Portrait of Sam Freedman">
             <div>
-                <div class="contact-info">
+                <address class="contact-info">
                     <p>
                         <strong>Office</strong>: Room 318, Eckhart Hall<br>
-                        <strong>Email</strong>: sfreedman67 [at] uchicago [dot] edu
+                        <strong>Email</strong>: <a href="mailto:sfreedman67@uchicago.edu">sfreedman67@uchicago.edu</a>
                     </p>
-                </div>
+                </address>
                 <div class="research-info">
                     <p>
                         I am an L.E. Dickson Instructor at the <a href="https://mathematics.uchicago.edu">University of Chicago</a>.<br>
@@ -112,32 +34,25 @@
                         My research is in translation surfaces, Veech groups, and Teichmüller dynamics.
                     </p>
                     <p>
-                        <a href="Freedman_CV.pdf">CV</a> &emsp; <a href="NSF_2024.pdf">Research Statement</a> &emsp; <a href="Freedman-teaching.pdf">Teaching Statement</a>
+                        <a href="Freedman_CV.pdf">CV</a> &ensp;
+                        <a href="NSF_2024.pdf">Research Statement</a> &ensp;
+                        <a href="Freedman-teaching.pdf">Teaching Statement</a>
                     </p>
                 </div>
             </div>
         </section>
-        <section id="papers">
-            <h2>Papers</h2>
+        <section id="papers" aria-labelledby="papers-heading">
+            <h2 id="papers-heading">Papers</h2>
             <ol>
-                <li>Veech fibrations. (With Trent Lucas.) <a href="https://arxiv.org/abs/2310.02325">Preprint</a>.
-                </li>
-                <br>
-                <li>There are no Teichmüller curves in Prym(2, 2). (With Julian Boulanger.) <a href="https://doi.org/10.5802/crmath.551">Comptes Rendus. Mathématique, Volume 362 (2024)</a>. <a href="https://github.com/sfreedman67/92-candidates">Code</a>.
-                </li>
-                <br>
-                <li>Periodic Points of Prym Eigenforms. <a href="https://doi.org/10.3934/jmd.2024004">Journal of Modern Dynamics, 2024, 20: 155-181</a>.
-                </li>
-                <br>
-                <li>Computing Periodic Points on Veech Surfaces. (With Zawad Chowdhury, Samuel Everett, and Destine Lee) <a href="https://arxiv.org/abs/2112.02698">Geom Dedicata 217, 66 (2023)</a>. <a href="https://github.com/SFreedman67/samsurf">Code</a>.
-                </li>
-                <br>
-                <li>Automorphisms of tropical Hassett spaces. (With Siddarth Kannan and Joseph Hlavinka.) <a href="https://ems.press/content/serial-article-files/24916">Port. Math. 79 (2022)</a>.
-                </li>
+                <li>Veech fibrations. (With Trent Lucas.) <a href="https://arxiv.org/abs/2310.02325">Preprint</a>.</li>
+                <li>There are no Teichmüller curves in Prym(2, 2). (With Julian Boulanger.) <a href="https://doi.org/10.5802/crmath.551">Comptes Rendus. Mathématique, Volume 362 (2024)</a>. <a href="https://github.com/sfreedman67/92-candidates">Code</a>.</li>
+                <li>Periodic Points of Prym Eigenforms. <a href="https://doi.org/10.3934/jmd.2024004">Journal of Modern Dynamics, 2024, 20: 155-181</a>.</li>
+                <li>Computing Periodic Points on Veech Surfaces. (With Zawad Chowdhury, Samuel Everett, and Destine Lee) <a href="https://arxiv.org/abs/2112.02698">Geom Dedicata 217, 66 (2023)</a>. <a href="https://github.com/SFreedman67/samsurf">Code</a>.</li>
+                <li>Automorphisms of tropical Hassett spaces. (With Siddarth Kannan and Joseph Hlavinka.) <a href="https://ems.press/content/serial-article-files/24916">Port. Math. 79 (2022)</a>.</li>
             </ol>
         </section>
-        <section id="teaching">
-            <h2>Teaching</h2>
+        <section id="teaching" aria-labelledby="teaching-heading">
+            <h2 id="teaching-heading">Teaching</h2>
             <h3>University of Chicago:</h3>
             <ol>
                 <li>Spring 2025: Math 163, Honors Calculus 3.</li>
