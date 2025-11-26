@@ -26,7 +26,6 @@
     border-bottom: 1px solid #ddd;
     padding-bottom: 2px;
   }
-
   .event {
     margin: 6px 0;
     border-radius: 6px;
@@ -38,7 +37,6 @@
     background: #f5f5f5;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12);
   }
-
   .event summary {
     list-style: none;
     padding: 10px 12px;
@@ -48,7 +46,6 @@
     align-items: center;
   }
   .event summary::-webkit-details-marker { display: none; }
-
   .summary-left {
     display: flex;
     flex-direction: column;
@@ -67,7 +64,6 @@
     margin-top: 2px;
     white-space: nowrap;
   }
-
   .arrow {
     font-size: 1rem;
     opacity: 0.55;
@@ -77,7 +73,6 @@
   details[open] .arrow {
     transform: rotate(90deg);
   }
-
   .abstract {
     padding: 0 12px 10px 12px;
     font-size: 0.9rem;
@@ -94,15 +89,10 @@
 </div>
 
 <script>
-  // Raw ICS source (public)
-  const ICS_SOURCE =
-    "https://calendar.google.com/calendar/ical/hoeepj7q0fqncj2a6jk52uclak%40group.calendar.google.com/public/basic.ics";
+  const CALENDAR_ID = "hoeepj7q0fqncj2a6jk52uclak@group.calendar.google.com";
+  const API_KEY = "AIzaSyAkTW6Yp4FrVxXD0mz3PkI4ilsH6f49p1w";
 
-  // Use a CORS proxy to make it readable from the browser
-  const ICS_URL =
-    "https://api.allorigins.win/raw?url=" + encodeURIComponent(ICS_SOURCE);
-
-  // Same date window as your Apps Script: Sep 1 (current year) + 120 days
+  // Sep 1 of current year, +120 days
   const now = new Date();
   const year = now.getFullYear();
   const startWindow = new Date(year, 8, 1); // month 8 = September
@@ -110,58 +100,13 @@
 
   document.getElementById("title").textContent = "Autumn " + year;
 
-  function parseIcsDate(dt) {
-    // Handle all-day dates (YYYYMMDD)
-    if (/^\d{8}$/.test(dt)) {
-      const y = +dt.slice(0, 4);
-      const m = +dt.slice(4, 6) - 1;
-      const d = +dt.slice(6, 8);
-      return new Date(y, m, d);
-    }
-    // Typical Google ICS datetime: YYYYMMDDTHHMMSSZ or with timezone
-    return new Date(dt);
+  function toIso(d) {
+    return d.toISOString();
   }
 
-  function parseIcs(text) {
-    const events = [];
-    const chunks = text.split("BEGIN:VEVENT").slice(1);
-
-    for (const chunk of chunks) {
-      const lines = chunk.split(/\r?\n/);
-      let summary = "";
-      let description = "";
-      let dtStart = null;
-
-      for (let line of lines) {
-        if (line.startsWith("SUMMARY:")) {
-          summary = line.slice("SUMMARY:".length).trim();
-        } else if (line.startsWith("DESCRIPTION:")) {
-          // ICS escapes newlines as "\n"
-          description = line
-            .slice("DESCRIPTION:".length)
-            .replace(/\\n/g, "\n")
-            .trim();
-        } else if (line.startsWith("DTSTART")) {
-          const parts = line.split(":");
-          if (parts[1]) {
-            dtStart = parseIcsDate(parts[1].trim());
-          }
-        }
-      }
-
-      if (dtStart) {
-        events.push({ summary, description, start: dtStart });
-      }
-    }
-
-    return events;
-  }
-
-  function formatTime(d) {
-    return d.toLocaleTimeString(undefined, {
-      hour: "numeric",
-      minute: "2-digit"
-    });
+  function sanitize(text) {
+    const map = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
+    return String(text).replace(/[&<>"']/g, ch => map[ch]);
   }
 
   function formatDateKey(d) {
@@ -180,9 +125,11 @@
     });
   }
 
-  function sanitize(text) {
-    const map = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
-    return String(text).replace(/[&<>"']/g, ch => map[ch]);
+  function formatTime(d) {
+    return d.toLocaleTimeString(undefined, {
+      hour: "numeric",
+      minute: "2-digit"
+    });
   }
 
   function render(events) {
@@ -195,12 +142,12 @@
     }
 
     let lastKey = "";
-    for (const e of events) {
-      const key = formatDateKey(e.start);
+    for (const ev of events) {
+      const key = formatDateKey(ev.start);
       if (key !== lastKey) {
         const heading = document.createElement("div");
         heading.className = "date-heading";
-        heading.textContent = formatDateHeading(e.start);
+        heading.textContent = formatDateHeading(ev.start);
         container.appendChild(heading);
         lastKey = key;
       }
@@ -215,11 +162,11 @@
 
       const titleSpan = document.createElement("span");
       titleSpan.className = "summary-title";
-      titleSpan.innerHTML = sanitize(e.summary || "Untitled event");
+      titleSpan.innerHTML = sanitize(ev.summary || "Untitled event");
 
       const timeSpan = document.createElement("span");
       timeSpan.className = "summary-time";
-      timeSpan.textContent = formatTime(e.start);
+      timeSpan.textContent = formatTime(ev.start);
 
       left.appendChild(titleSpan);
       left.appendChild(timeSpan);
@@ -234,7 +181,7 @@
       const abstract = document.createElement("div");
       abstract.className = "abstract";
       abstract.innerHTML = sanitize(
-        (e.description && e.description.trim()) ? e.description.trim() : "TBA."
+        ev.description && ev.description.trim() ? ev.description.trim() : "TBA."
       ).replace(/\n/g, "<br>");
 
       details.appendChild(summaryEl);
@@ -244,23 +191,53 @@
     }
   }
 
-  fetch(ICS_URL)
-    .then(r => {
-      if (!r.ok) {
-        throw new Error("ICS HTTP " + r.status + " " + r.statusText);
-      }
-      return r.text();
-    })
-    .then(text => {
-      let events = parseIcs(text);
+  function fetchEvents() {
+    const params = new URLSearchParams({
+      key: API_KEY,
+      timeMin: toIso(startWindow),
+      timeMax: toIso(endWindow),
+      singleEvents: "true",
+      orderBy: "startTime"
+    });
 
-      // Filter to your window and sort
-      events = events
-        .filter(e => e.start >= startWindow && e.start < endWindow)
-        .sort((a, b) => a.start - b.start);
+    const url =
+      "https://www.googleapis.com/calendar/v3/calendars/" +
+      encodeURIComponent(CALENDAR_ID) +
+      "/events?" +
+      params.toString();
 
-      render(events);
-    })
+    return fetch(url)
+      .then(r => {
+        if (!r.ok) {
+          throw new Error("HTTP " + r.status + " " + r.statusText);
+        }
+        return r.json();
+      })
+      .then(data => {
+        const items = data.items || [];
+        const events = [];
+
+        for (const it of items) {
+          const startStr = it.start && (it.start.dateTime || it.start.date);
+          if (!startStr) continue;
+
+          const start = new Date(startStr);
+          if (!(start >= startWindow && start < endWindow)) continue;
+
+          events.push({
+            summary: it.summary || "",
+            description: it.description || "",
+            start
+          });
+        }
+
+        events.sort((a, b) => a.start - b.start);
+        return events;
+      });
+  }
+
+  fetchEvents()
+    .then(render)
     .catch(err => {
       document.getElementById("content").textContent =
         "Error loading events: " + err.message;
