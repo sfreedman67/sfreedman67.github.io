@@ -94,11 +94,11 @@
 </div>
 
 <script>
-    // Raw ICS source
+  // Raw ICS source (public)
   const ICS_SOURCE =
     "https://calendar.google.com/calendar/ical/hoeepj7q0fqncj2a6jk52uclak%40group.calendar.google.com/public/basic.ics";
 
-  // Use a free CORS proxy to make it readable from the browser
+  // Use a CORS proxy to make it readable from the browser
   const ICS_URL =
     "https://api.allorigins.win/raw?url=" + encodeURIComponent(ICS_SOURCE);
 
@@ -112,7 +112,7 @@
 
   function parseIcsDate(dt) {
     // Handle all-day dates (YYYYMMDD)
-    if (/^\\d{8}$/.test(dt)) {
+    if (/^\d{8}$/.test(dt)) {
       const y = +dt.slice(0, 4);
       const m = +dt.slice(4, 6) - 1;
       const d = +dt.slice(6, 8);
@@ -127,7 +127,7 @@
     const chunks = text.split("BEGIN:VEVENT").slice(1);
 
     for (const chunk of chunks) {
-      const lines = chunk.split(/\\r?\\n/);
+      const lines = chunk.split(/\r?\n/);
       let summary = "";
       let description = "";
       let dtStart = null;
@@ -136,10 +136,11 @@
         if (line.startsWith("SUMMARY:")) {
           summary = line.slice("SUMMARY:".length).trim();
         } else if (line.startsWith("DESCRIPTION:")) {
-          // Basic unescape of ICS escaped newlines
-          description = line.slice("DESCRIPTION:".length)
-                            .replace(/\\\\n/g, "\\n")
-                            .trim();
+          // ICS escapes newlines as "\n"
+          description = line
+            .slice("DESCRIPTION:".length)
+            .replace(/\\n/g, "\n")
+            .trim();
         } else if (line.startsWith("DTSTART")) {
           const parts = line.split(":");
           if (parts[1]) {
@@ -234,7 +235,7 @@
       abstract.className = "abstract";
       abstract.innerHTML = sanitize(
         (e.description && e.description.trim()) ? e.description.trim() : "TBA."
-      ).replace(/\\n/g, "<br>");
+      ).replace(/\n/g, "<br>");
 
       details.appendChild(summaryEl);
       details.appendChild(abstract);
@@ -245,7 +246,9 @@
 
   fetch(ICS_URL)
     .then(r => {
-      if (!r.ok) throw new Error("Failed to load ICS");
+      if (!r.ok) {
+        throw new Error("ICS HTTP " + r.status + " " + r.statusText);
+      }
       return r.text();
     })
     .then(text => {
