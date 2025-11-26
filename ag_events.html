@@ -94,9 +94,13 @@
 </div>
 
 <script>
-  // Public ICS URL for your calendar
-  const ICS_URL =
+    // Raw ICS source
+  const ICS_SOURCE =
     "https://calendar.google.com/calendar/ical/hoeepj7q0fqncj2a6jk52uclak%40group.calendar.google.com/public/basic.ics";
+
+  // Use a free CORS proxy to make it readable from the browser
+  const ICS_URL =
+    "https://api.allorigins.win/raw?url=" + encodeURIComponent(ICS_SOURCE);
 
   // Same date window as your Apps Script: Sep 1 (current year) + 120 days
   const now = new Date();
