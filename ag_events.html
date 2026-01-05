@@ -95,10 +95,10 @@
   // Sep 1 of current year, +120 days
   const now = new Date();
   const year = now.getFullYear();
-  const startWindow = new Date(year, 8, 1); // month 8 = September
+  const startWindow = new Date(year, 0, 1); // month 8 = September
   const endWindow = new Date(startWindow.getTime() + 1000 * 60 * 60 * 24 * 120);
 
-  document.getElementById("title").textContent = "Autumn " + year;
+  document.getElementById("title").textContent = "Winter " + year;
 
   function toIso(d) {
     return d.toISOString();
